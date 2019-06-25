@@ -3,13 +3,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-	<licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>https://raw.github.com/WASdev/ci.maven.tools/master/LICENSE</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
 
 	<modelVersion>4.0.0</modelVersion>
   
@@ -19,8 +12,12 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <name>productapi</name>
-  <url>http://maven.apache.org</url>
-
+    <repositories>
+        <repository>
+            <id>com.ibm.db2.jcc</id>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+        </repository>
+    </repositories>
   <dependencies>
     	<dependency>
 		  	<groupId>net.wasdev.maven.tools.targets</groupId>
@@ -47,6 +44,34 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.9.9</version>
 		</dependency>
+
+    		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.40</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.2.8.Final</version>
+		</dependency>
+		<dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc4</artifactId>
+            <version>10.1</version>
+        </dependency>
   </dependencies>
 
   <build>

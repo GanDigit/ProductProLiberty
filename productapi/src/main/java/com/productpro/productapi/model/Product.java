@@ -1,11 +1,24 @@
 package com.productpro.productapi.model;
 
-public class Product {
+import java.io.Serializable;
 
-    private int id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Product implements Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column
     private String name;
-    private String category;
-    private int price;
+	@Column
+	private String category;
+	@Column
+	private int price;
 	public int getId() {
 		return id;
 	}
@@ -29,6 +42,10 @@ public class Product {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + "]";
 	}
     
     

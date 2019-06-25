@@ -1,43 +1,56 @@
 package com.productpro.productapi.controller;
 
+import com.productpro.productapi.jpa.ProductJPA;
 import com.productpro.productapi.model.Product;
-import com.productpro.productapi.repo.ProductManager;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 
 @Path("products")
 @RequestScoped
 public class ProductController {
 
     @Inject
-    private ProductManager productManager;
+    private ProductJPA productJPA;
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProduct(@PathParam("id") String id) {
-        Product product = productManager.get(id);
+    public Response getProduct(@PathParam("id") int id) {
+        Product product = productJPA.find(id);
         return Response.ok(product).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllProducts() {
-        return Response.ok(productManager.getAll()).build();
+        return Response.ok(productJPA.findAll()).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response add(Product product) {
-        String productId = productManager.add(product);
-        return Response.created(
-                UriBuilder.fromResource(this.getClass()).path(productId).build())
-                .build();
+    	product = productJPA.create(product);
+    	 return Response.ok(product).build();
+    }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(Product product) {
+    	product = productJPA.update(product);
+    	return Response.ok(product).build();
     }
 
+        
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") int id) {
+    	boolean result = productJPA.delete(id);
+    	return Response.ok(result).build();
+    }
 }
+

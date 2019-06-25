@@ -12,12 +12,12 @@ import com.productpro.productweb.products.model.Product;
 
 public class ProductService {
 	
-	public static String API_SERVICE_URL_ENV = "PRODUCTPRO_API_SERVICE_URL";
+	public static String ENV_KEY_API_SERVICE_URL = "PRODUCTPRO_API_SERVER_URL";
 	public static String API_SERVICE_URL_Local = "http://localhost:9080/productapi/rest-api/products";
 	
 	private static WebTarget getWebTarget() {
     	
-    	String apiURL = System.getenv(API_SERVICE_URL_ENV);
+    	String apiURL = System.getenv(ENV_KEY_API_SERVICE_URL);
     	if (apiURL == null || apiURL.isEmpty()) {
     		apiURL = API_SERVICE_URL_Local;
     	}

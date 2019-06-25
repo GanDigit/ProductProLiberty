@@ -34,3 +34,9 @@ spec:
           #     path: /
           #     port: http
           env:
+            # API server URL
+            - name: PRODUCTPRO_API_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: productpro-liberty-config-map
+                  key: api.server.url

@@ -8,8 +8,12 @@ namespace: productpro-app
 # Docker image pull secret
 dockerImagePullSecretValue: eyJhdXRocyI6eyJteWNsdXN0ZXJoY2wxLmljcDo4NTAwIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6ImFkbWluIiwiZW1haWwiOiJudWxsIiwiYXV0aCI6IllXUnRhVzQ2WVdSdGFXND0ifX19
 
+# Replica count
 replicaCountWeb: 1
 replicaCountAPI: 1
+
+# DB Properties
+apiServerUrl: http://fyre.liberty.9.121.242.183.nip.io/productapi/rest-api/products
 
 # DB Properties
 dbURL: jdbc:db2://9.121.242.180:31274/jkedb

@@ -7,3 +7,4 @@ metadata:
     app: productpro-liberty-config-map
 # type: Opaque
 data:
+  api.server.url: {{ .Values.apiServerUrl }}

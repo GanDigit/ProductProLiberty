@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.nameSpace }}
+  name: productpro-liberty-api
+  labels:
+    app: productpro-liberty-api
+spec:
+  type: {{ .Values.serviceAPI.type }}
+  ports:
+    - name: http
+      port: 80
+      nodePort: {{ .Values.serviceAPI.nodePort }}
+      targetPort: {{ .Values.serviceAPI.targetPort }}
+  selector:
+    app: productpro-liberty-api

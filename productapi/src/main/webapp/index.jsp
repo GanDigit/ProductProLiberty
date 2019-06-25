@@ -9,12 +9,5 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        
-         <a href="MyProductClient">Product List</a> <BR><BR>
-         <a href="MyEJBClient">EJB </a><BR><BR>
-         <a href="MyJmsClient">JMS </a><BR><BR>
-         
-         <a href="index.jsp">Home</a><BR><BR>
-         
     </body>
 </html>

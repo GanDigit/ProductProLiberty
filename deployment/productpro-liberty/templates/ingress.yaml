@@ -14,3 +14,7 @@ spec:
           backend:
             serviceName: productpro-liberty-web
             servicePort: 80
+        - path: /api2
+          backend:
+            serviceName: productpro-liberty-api
+            servicePort: 80            

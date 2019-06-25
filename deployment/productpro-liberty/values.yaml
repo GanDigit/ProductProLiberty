@@ -9,6 +9,7 @@ namespace: productpro-app
 dockerImagePullSecretValue: eyJhdXRocyI6eyJteWNsdXN0ZXJoY2wxLmljcDo4NTAwIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6ImFkbWluIiwiZW1haWwiOiJudWxsIiwiYXV0aCI6IllXUnRhVzQ2WVdSdGFXND0ifX19
 
 replicaCountWeb: 1
+replicaCountAPI: 1
 
 # DB Properties
 dbURL: jdbc:db2://9.121.242.180:31274/jkedb
@@ -20,12 +21,20 @@ imageWeb:
   repository: myclusterhcl1.icp:8500/productpro-app/productpro-liberty-web
   tag: latest
   pullPolicy: Always
+imageAPI:
+  repository: myclusterhcl1.icp:8500/productpro-app/productpro-liberty-api
+  tag: latest
+  pullPolicy: Always
 
 # Keep the targetPort as 9080 for Websphere liberty server
 serviceWeb:
   type: NodePort
   targetPort: 9080
-  nodePort: 31061
+  nodePort: 31071
+serviceAPI:
+  type: NodePort
+  targetPort: 9080
+  nodePort: 31072
 
 # ingress
 ingress:

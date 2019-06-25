@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Values.nameSpace }}
+  name: productpro-liberty-config-map
+  labels:
+    app: productpro-liberty-config-map
+# type: Opaque
+data:

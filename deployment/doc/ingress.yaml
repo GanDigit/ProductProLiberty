@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: {{ .Values.nameSpace }}
+  name: productpro-ingress
+  labels:
+    app: {{ template "productpro-app-helm-charts.name" . }}
+    chart: {{ template "productpro-app-helm-charts.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  rules:
+  - host: 
+    http:
+      paths:
+        - path: /productpro
+          backend:
+            serviceName: productpro-web
+            servicePort: http

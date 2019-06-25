@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  namespace: {{ .Values.nameSpace }}
+  name: productpro-liberty-web
+  labels:
+    app: productpro-liberty-web
+spec:
+  replicas: {{ .Values.replicaCountWeb }}
+  selector:
+    matchLabels:
+      app: productpro-liberty-web
+  template:
+    metadata:
+      labels:
+        app: productpro-liberty-web
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.imageWeb.repository }}:{{ .Values.imageWeb.tag }}"
+          imagePullPolicy: {{ .Values.imageWeb.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          env:

@@ -1,0 +1,57 @@
+node {
+
+    def APP_NAME = "productpro-liberty-web"
+    def IMAGE_TAG_NAME = "${env.PRODUCTPRO_APP_DOCKER_REGISTRY}/${env.PRODUCTPRO_APP_NAMESPACE}/productpro-liberty-web:latest"
+    def DOCKER_REGISTRY = "${env.PRODUCTPRO_APP_DOCKER_REGISTRY}"
+    def NAMESPACE = "${env.PRODUCTPRO_APP_NAMESPACE}"
+
+    stage("Compile") {
+        sh 'echo "Compile Started ...."'
+        checkout scm
+        sh "cp -r productweb/* ./"
+        sh "mvn package"
+        sh 'echo "Compile Completed ...."'
+    }
+
+    stage("Docker build") {
+        sh 'echo "build Started ...."'
+        sh "docker version"
+        sh "docker build -f config/Dockerfile -t ${IMAGE_TAG_NAME} ."
+        sh 'echo "build Completed ...."'
+    }
+
+    stage('Docker push') {
+        withCredentials([usernamePassword(credentialsId: 'productpro-registry-credentials',
+                                        usernameVariable: 'USERNAME',
+                                        passwordVariable: 'PASSWORD')]) {
+            sh """
+            #!/bin/bash
+
+            echo "docker push  Started ...."
+            docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_REGISTRY}
+            docker push ${IMAGE_TAG_NAME}
+            echo "docker push  completed ...."
+            """
+        }
+    }
+
+//    stage("Deploy new Docker Image") {
+//        sh """
+//        #!/bin/bash
+//        echo "Deploy Started ...."
+//        DEPLOYMENT=`kubectl --namespace=${NAMESPACE} get deployments -l app=${APP_NAME} -o name`
+//        kubectl --namespace=${NAMESPACE} get \${DEPLOYMENT}
+//        if [ \${?} -ne "0" ]; then
+//            # No deployment to update
+//            echo 'No deployment to update'
+//            exit 1
+//        fi
+
+//        # Update deployment and check rollout status
+//        kubectl --namespace=${NAMESPACE} set image \${DEPLOYMENT} ${APP_NAME}=${:latest}
+//        kubectl --namespace=${NAMESPACE} rollout status \${DEPLOYMENT}
+
+//        echo "Deploy Completed ...."
+//        """
+//    }
+}

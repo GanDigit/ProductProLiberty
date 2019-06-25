@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: {{ .Values.nameSpace }}
+  name: productpro-liberty-ingress
+  labels:
+    app: productpro-liberty-ingress
+spec:
+  rules:
+  - host: fyre.liberty.9.121.242.183.nip.io
+    http: 
+      paths:
+        - path: /
+          backend:
+            serviceName: productpro-liberty-web
+            servicePort: 80
